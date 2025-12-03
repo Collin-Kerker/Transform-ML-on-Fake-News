@@ -1,0 +1,10 @@
+Required Packages:
+- scikit-learn
+- pandas
+- numpy
+- matplotlib
+- seaborn
+- transformers
+- datasets
+- accelerate
+- torch
