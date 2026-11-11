@@ -37,7 +37,7 @@ The unfiltered nature of online publishing means false information can spread at
 ### BERT Transformer
 - **Base Model:** `bert-base-uncased` from Hugging Face
 - **Task:** Binary sequence classification
-- **Tokenization:** BERT tokenizer with max length of 512 tokens
+- **Tokenization:** BERT tokenizer, max length 256 tokens
 - **Training:** Fine-tuned on news article classification task
 
 ### Baseline Model (For Comparison)
@@ -94,23 +94,18 @@ The unfiltered nature of online publishing means false information can spread at
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/BetterButterBoy/422-Final-Project.git
-cd 422-Final-Project
+git clone https://github.com/Collin-Kerker/Transform-ML-on-Fake-News.git
+cd Transform-ML-on-Fake-News
 ```
 
 2. **Install dependencies**
-```bash
-pip install scikit-learn pandas numpy matplotlib seaborn transformers datasets accelerate torch
-```
-
-Alternatively, if using a `requirements.txt`:
 ```bash
 pip install -r requirements.txt
 ```
 
 3. **Download the dataset**
 - Download the [Fake-and-Real-News-Dataset](https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset) from Kaggle
-- Place `Fake.csv` and `True.csv` in the `data/` folder
+- Create a `data/` folder at the repo root and put `Fake.csv` and `True.csv` in it (the dataset isn't committed)
 
 ### Required Dependencies
 ```
@@ -129,7 +124,7 @@ torch>=1.10.0
 
 ### Jupyter Notebook (Recommended)
 ```bash
-jupyter notebook Transformer_ML_Notebook.ipynb
+jupyter notebook notebooks/Transformer_ML_Notebook.ipynb
 ```
 
 Run all cells sequentially to:
@@ -142,8 +137,8 @@ Run all cells sequentially to:
 ### Training Details
 - **Training Time:** Varies by hardware (CPU: ~2-4 hours, GPU: ~30-60 minutes)
 - **Hardware Used:** CPU training (GPU recommended for faster results)
-- **Batch Size:** Default settings from Hugging Face Trainer
-- **Epochs:** Configured for optimal performance
+- **Batch Size:** 8 (train and eval)
+- **Epochs:** 3 configured; the saved checkpoint is from step 5,000 (about 1.3 epochs)
 
 ## Model Pipeline
 
@@ -154,7 +149,7 @@ Data Cleaning & Combination
     ↓
 Train/Test Split (80/20)
     ↓
-BERT Tokenization (max_length=512)
+BERT Tokenization (max_length=256)
     ↓
 Fine-tuning BERT Model
     ↓
@@ -178,13 +173,17 @@ Confusion Matrix Analysis
 ## Project Structure
 
 ```
-422-Final-Project/
-├── data/
-│   ├── Fake.csv                     # Fake news articles
-│   └── True.csv                     # Real news articles
-├── Transformer_ML_Notebook.ipynb    # Main analysis notebook
-├── requirements.txt                 # Python dependencies
-└── README.md                        # This file
+Transform-ML-on-Fake-News/
+├── notebooks/
+│   └── Transformer_ML_Notebook.ipynb   # Full pipeline: preprocessing, baseline, BERT fine-tuning, evaluation
+├── models/
+│   └── checkpoint-5000/                # Training config and trainer state (weights not committed, too large)
+├── results/
+│   ├── Final Project Confusion Matrix.png
+│   └── baseline_vs_BERT.csv            # Accuracy / F1 comparison
+├── data/                               # Not committed. Download from Kaggle (see above)
+├── requirements.txt
+└── README.md
 ```
 
 ## Important Notes
@@ -225,9 +224,9 @@ Confusion Matrix Analysis
 - [Hugging Face Transformers Documentation](https://huggingface.co/docs/transformers/)
 - [Kaggle Fake News Dataset](https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset)
 
-## License
+## Context
 
-This project was created as the final project for EGR422 at California Baptist University.
+Final project for EGR 422 at California Baptist University.
 
 ## Author
 
@@ -235,8 +234,4 @@ This project was created as the final project for EGR422 at California Baptist U
 Computer Science Student @ California Baptist University  
 Concentration: Machine Learning & AI
 
-[GitHub](https://github.com/BetterButterBoy) | [LinkedIn](https://www.linkedin.com/in/collin-kerker/) | [Email](mailto:kerkercollin@gmail.com)
-
----
-
-*This project demonstrates advanced NLP skills using transformer models for real-world misinformation detection.*
+[GitHub](https://github.com/Collin-Kerker) | [LinkedIn](https://www.linkedin.com/in/collin-kerker/) | [Email](mailto:kerkercollin@gmail.com)
